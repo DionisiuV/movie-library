@@ -7,7 +7,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ro.valentin.movielibrary.R
-import ro.valentin.movielibrary.domain.model.SplashViewModel
 import ro.valentin.movielibrary.presentation.auth.AuthActivity
 import ro.valentin.movielibrary.presentation.main.MainActivity
 import java.util.*

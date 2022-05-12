@@ -1,4 +1,4 @@
-package ro.valentin.movielibrary.domain.model
+package ro.valentin.movielibrary.presentation.splash
 
 import androidx.lifecycle.ViewModel
 import dagger.Provides

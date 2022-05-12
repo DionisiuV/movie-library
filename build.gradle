@@ -10,6 +10,7 @@ buildscript {
         firebase_boom_version = "30.0.0"
         google_play_services_version = "20.2.0"
         google_services_version = "4.3.10"
+        coroutines_play_services = "1.6.1"
     }
 
     dependencies {
