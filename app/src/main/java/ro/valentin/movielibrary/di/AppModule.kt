@@ -12,6 +12,7 @@ import dagger.hilt.components.SingletonComponent
 import ro.valentin.movielibrary.R
 import ro.valentin.movielibrary.data.repository.AuthRepositoryImpl
 import ro.valentin.movielibrary.domain.repository.AuthRepository
+import javax.inject.Named
 
 
 @Module
@@ -24,6 +25,20 @@ class AppModule {
     )
 
     @Provides
+    @Named("signUpRequest")
+    fun provideSignUpRequest(application: Application): BeginSignInRequest = BeginSignInRequest.builder()
+        .setGoogleIdTokenRequestOptions(
+            BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                .setSupported(true)
+                // Your server's client ID, not your Android client ID.
+                .setServerClientId(application.getString(R.string.web_client_id))
+                // Show all accounts on the device.
+                .setFilterByAuthorizedAccounts(false)
+                .build())
+        .build()
+
+    @Provides
+    @Named("signInRequest")
     fun provideSignInRequest(application: Application): BeginSignInRequest = BeginSignInRequest.builder()
         .setGoogleIdTokenRequestOptions(
             BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
@@ -38,11 +53,13 @@ class AppModule {
     @Provides
     fun provideAuthRepository(
         firebaseAuth: FirebaseAuth,
-        beginSignInRequest: BeginSignInRequest,
-        oneTapClient: SignInClient
-    ) :
-            AuthRepository = AuthRepositoryImpl(
-        firebaseAuth = firebaseAuth,
-        beginSignInRequest = beginSignInRequest,
-        oneTapClient = oneTapClient)
+        oneTapClient: SignInClient,
+        @Named("signInRequest") beginSignInRequest: BeginSignInRequest,
+        @Named("signUpRequest") beginSignUpRequest: BeginSignInRequest
+    ): AuthRepository = AuthRepositoryImpl(
+            firebaseAuth = firebaseAuth,
+            oneTapClient = oneTapClient,
+            beginSignInRequest = beginSignInRequest,
+            beginSignUpRequest = beginSignUpRequest
+        )
 }
