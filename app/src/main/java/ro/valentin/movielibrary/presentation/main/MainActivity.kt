@@ -1,5 +1,6 @@
 package ro.valentin.movielibrary.presentation.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import ro.valentin.movielibrary.core.Constants
 import ro.valentin.movielibrary.core.Utils.Companion.hide
 import ro.valentin.movielibrary.core.Utils.Companion.show
 import ro.valentin.movielibrary.domain.model.Response
+import ro.valentin.movielibrary.presentation.auth.AuthActivity
 import ro.valentin.movielibrary.presentation.auth.AuthViewModel
 
 @AndroidEntryPoint
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initProgressBar()
-
+        getAuthState()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -63,5 +65,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private fun initProgressBar() {
         loaderProgressBar = findViewById(R.id.loadingProgressBar)
+    }
+
+    private fun getAuthState() {
+        viewModel.authStateListener().observe(this) { state ->
+            if(state) {
+                goToAuthActivity()
+            }
+        }
+    }
+
+    private fun goToAuthActivity() {
+        startActivity(Intent(this, AuthActivity::class.java))
+        finish()
     }
 }

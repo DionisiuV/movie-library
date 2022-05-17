@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import com.google.firebase.auth.AuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import ro.valentin.movielibrary.domain.repository.AuthRepository
 import javax.inject.Inject
 
@@ -32,6 +33,12 @@ class AuthViewModel @Inject constructor(
 
     fun firebaseSignOut() = liveData(Dispatchers.IO) {
         authRepository.firebaseSignOut().collect {
+            emit(it)
+        }
+    }
+
+    fun authStateListener() = liveData(Dispatchers.IO) {
+        authRepository.authStateListener().collect {
             emit(it)
         }
     }

@@ -9,7 +9,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import ro.valentin.movielibrary.R
+import ro.valentin.movielibrary.core.Constants.BASE_URL
+import ro.valentin.movielibrary.data.network.MovieDbApi
 import ro.valentin.movielibrary.data.repository.AuthRepositoryImpl
 import ro.valentin.movielibrary.domain.repository.AuthRepository
 import javax.inject.Named
@@ -62,4 +66,12 @@ class AppModule {
             beginSignInRequest = beginSignInRequest,
             beginSignUpRequest = beginSignUpRequest
         )
+
+    @Provides
+    fun provideMovieDbApi(): MovieDbApi = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .build()
+            .create(MovieDbApi::class.java)
+
 }

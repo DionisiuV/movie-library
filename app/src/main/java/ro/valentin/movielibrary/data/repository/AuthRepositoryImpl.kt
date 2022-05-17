@@ -5,7 +5,9 @@ import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import ro.valentin.movielibrary.domain.model.Response
@@ -62,6 +64,16 @@ class AuthRepositoryImpl
             emit(Response.Success(true))
         } catch (e: Exception){
             emit(Response.Error(e.message ?: e.toString()))
+        }
+    }
+
+    override fun authStateListener() = callbackFlow {
+            val authStateListener = FirebaseAuth.AuthStateListener {
+                trySend(it.currentUser == null)
+            }
+            firebaseAuth.addAuthStateListener(authStateListener)
+        awaitClose {
+            firebaseAuth.removeAuthStateListener(authStateListener)
         }
     }
 }

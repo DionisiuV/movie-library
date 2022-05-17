@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/latestMovies"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_movie_24"
+        android:title="Latest Movies"/>
+    <item
+        android:id="@+id/myProfile"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="My Profile"/>
+    <item
+        android:id="@+id/favorites"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="Favorites"/>
+</menu>

@@ -51,6 +51,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     //Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     //Fragment
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
@@ -68,4 +69,6 @@ dependencies {
     //Google play services
     implementation "com.google.android.gms:play-services-auth:$google_play_services_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines_play_services"
+    //Paging
+    implementation "androidx.paging:paging-runtime:$paging_version"
 }
