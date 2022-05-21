@@ -12,6 +12,7 @@ buildscript {
         google_services_version = "4.3.10"
         coroutines_play_services = "1.6.1"
         paging_version = "3.1.1"
+        glide_version = "4.13.0"
     }
 
     dependencies {

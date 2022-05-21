@@ -1,3 +1,16 @@
 package ro.valentin.movielibrary.data.network.dto
 
- class MovieDto
+import com.google.gson.annotations.SerializedName
+import ro.valentin.movielibrary.domain.model.Movie
+
+data class MovieDto(
+    val id: Int,
+    val title: String,
+    @SerializedName("poster_path") val posterPath: String,
+    @SerializedName("vote_average") val rating: Double,
+    @SerializedName("release_date") val releaseDate: String,
+    val popularity: Double,
+    @SerializedName("original_language") val originalLanguage: String
+)
+
+   fun MovieDto.toMovie(): Movie = Movie(id, title, posterPath, rating, releaseDate)

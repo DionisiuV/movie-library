@@ -12,7 +12,14 @@ import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.common.SignInButton
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import ro.valentin.movielibrary.R
 import ro.valentin.movielibrary.core.Constants
@@ -25,13 +32,17 @@ import ro.valentin.movielibrary.presentation.auth.AuthViewModel
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val viewModel by viewModels<AuthViewModel>()
+    private lateinit var navController: NavController
+    private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var loaderProgressBar: ProgressBar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initProgressBar()
+
+        setNavControllerNav()
         getAuthState()
+        initProgressBar()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -78,5 +89,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private fun goToAuthActivity() {
         startActivity(Intent(this, AuthActivity::class.java))
         finish()
+    }
+
+    private fun setNavControllerNav() {
+        navController = findNavController(R.id.navHostFragment)
+        bottomNavigation = findViewById(R.id.bottomNavigation)
+
+        //@TODO: inject it
+        val config = AppBarConfiguration(
+            setOf(R.id.latestMovieFragment)
+        )
+
+        setupActionBarWithNavController(navController, config)
+        bottomNavigation.setupWithNavController(navController)
     }
 }

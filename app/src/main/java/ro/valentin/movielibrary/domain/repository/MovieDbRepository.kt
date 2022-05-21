@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 import ro.valentin.movielibrary.data.network.dto.MovieDto
 
 interface MovieDbRepository {
-    suspend fun getMovies(query: String): Flow<PagingData<MovieDto>>
+    suspend fun getLatestMovies(): Flow<PagingData<MovieDto>>
 }

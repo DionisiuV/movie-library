@@ -4,8 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data class="MovieDataBinding">
+        <variable
+            name="movie"
+            type="ro.valentin.movielibrary.domain.model.Movie" />
+
+        <variable
+            name="onMovieClickListener"
+            type="ro.valentin.movielibrary.presentation.movies.LatestMoviesAdapter.OnMovieClickListener" />
+    </data>
 
     <androidx.cardview.widget.CardView
+        android:onClick="@{(v) -> onMovieClickListener.onMovieClick(movie)}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -23,26 +33,30 @@
 
             <ImageView
                 android:id="@+id/posterImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="50dp"
+                android:layout_height="100dp"
+                android:posterPath="@{movie.posterPath}"/>
 
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Titanic" />
+                tools:text="Titanic"
+                android:text="@{movie.title}"/>
 
             <TextView
                 android:id="@+id/movieYearTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="1997" />
+                tools:text="1997"
+                android:text="@{movie.releaseDate}"/>
 
             <TextView
                 android:id="@+id/ratingTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="8/10" />
+                tools:text="8/10"
+                android:text="@{String.valueOf(movie.rating)}"/>
 
         </LinearLayout>
 

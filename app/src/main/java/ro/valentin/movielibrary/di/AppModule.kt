@@ -15,7 +15,9 @@ import ro.valentin.movielibrary.R
 import ro.valentin.movielibrary.core.Constants.BASE_URL
 import ro.valentin.movielibrary.data.network.MovieDbApi
 import ro.valentin.movielibrary.data.repository.AuthRepositoryImpl
+import ro.valentin.movielibrary.data.repository.MovieDbRepositoryImpl
 import ro.valentin.movielibrary.domain.repository.AuthRepository
+import ro.valentin.movielibrary.domain.repository.MovieDbRepository
 import javax.inject.Named
 
 
@@ -73,5 +75,12 @@ class AppModule {
             .baseUrl(BASE_URL)
             .build()
             .create(MovieDbApi::class.java)
+
+    @Provides
+    fun provideMovieDbRepository(
+        movieDbApi: MovieDbApi
+    ): MovieDbRepository = MovieDbRepositoryImpl(
+        movieDbApi = movieDbApi
+    )
 
 }
